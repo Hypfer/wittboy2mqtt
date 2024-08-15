@@ -8,7 +8,7 @@ if (process.env.LOGLEVEL) {
 const poller = new Poller();
 
 poller.onData((data) => {
-    Logger.info(`Data: ${data}`)
+    Logger.info(`Data: ${JSON.stringify(data)}`)
 })
 
 poller.initialize().then(() => {

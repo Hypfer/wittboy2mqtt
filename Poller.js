@@ -2,6 +2,8 @@ const EventEmitter = require("events").EventEmitter;
 const ModbusRTU = require("modbus-serial");
 const Logger = require("./Logger");
 
+const NORTH_OFFSET = process.env.NORTH_OFFSET ? parseInt(process.env.NORTH_OFFSET, 10) : 0;
+
 class Poller {
     constructor() {
         this.eventEmitter = new EventEmitter();
@@ -56,6 +58,8 @@ class Poller {
             RAIN: data.buffer.readUInt16BE(14) / 10,
             PRESSURE: data.buffer.readUInt16BE(16) / 10,
         };
+        
+        output.WIND_DIRECTION = (output.WIND_DIRECTION + NORTH_OFFSET + 360) % 360;
 
         this.emitData(output);
     }
