@@ -42,14 +42,14 @@ class Poller {
         } catch(err) {
             Logger.warn("Error while polling", err)
         }
-        
+
         if (!data) {
             return;
         }
 
         const output = {
             LIGHT: data.buffer.readUInt16BE(0) * 10,
-            UV: data.buffer.readUInt16BE(2),
+            UV: data.buffer.readUInt16BE(2) / 10,
             TEMP: (data.buffer.readUInt16BE(4) - 400) / 10,
             HUM: data.buffer.readUInt16BE(6),
             WIND: data.buffer.readUInt16BE(8) / 10,
@@ -58,7 +58,7 @@ class Poller {
             RAIN: data.buffer.readUInt16BE(14) / 10,
             PRESSURE: data.buffer.readUInt16BE(16) / 10,
         };
-        
+
         output.WIND_DIRECTION = (output.WIND_DIRECTION + NORTH_OFFSET + 360) % 360;
 
         this.emitData(output);
