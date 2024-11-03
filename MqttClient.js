@@ -232,7 +232,7 @@ class MqttClient {
                 "state_topic": `${baseTopic}/pressure`,
                 "name": "Pressure",
                 "unit_of_measurement": "hPa",
-                "device_class": "pressure",
+                "device_class": "atmospheric_pressure",
                 "state_class": "measurement",
                 "object_id": `wittboy2mqtt_${identifier}_pressure`,
                 "unique_id": `wittboy2mqtt_${identifier}_pressure`,
