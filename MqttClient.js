@@ -66,7 +66,7 @@ class MqttClient {
             stringData[key] = `${value}`;
         })
 
-        this.client.publish(`${baseTopic}/light`, stringData.LIGHT);
+        this.client.publish(`${baseTopic}/illuminance`, stringData.ILLUMINANCE);
         this.client.publish(`${baseTopic}/uv_index`, stringData.UV);
         this.client.publish(`${baseTopic}/temperature`, stringData.TEMP);
         this.client.publish(`${baseTopic}/humidity`, stringData.HUM);
@@ -94,15 +94,15 @@ class MqttClient {
         };
 
         this.client.publish(
-            `${discoveryTopic}/light/config`,
+            `${discoveryTopic}/illuminance/config`,
             JSON.stringify({
-                "state_topic": `${baseTopic}/light`,
-                "name": "Light",
+                "state_topic": `${baseTopic}/illuminance`,
+                "name": "Illuminance",
                 "unit_of_measurement": "lx",
                 "device_class": "illuminance",
                 "state_class": "measurement",
-                "object_id": `wittboy2mqtt_${identifier}_light`,
-                "unique_id": `wittboy2mqtt_${identifier}_light`,
+                "object_id": `wittboy2mqtt_${identifier}_illuminance`,
+                "unique_id": `wittboy2mqtt_${identifier}_illuminance`,
                 "expire_after": 300,
                 "enabled_by_default": true,
                 "device": device

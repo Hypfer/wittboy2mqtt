@@ -48,7 +48,7 @@ class Poller {
         }
 
         const output = {
-            LIGHT: data.buffer.readUInt16BE(0) * 10,
+            ILLUMINANCE: data.buffer.readUInt16BE(0) * 10,
             UV: data.buffer.readUInt16BE(2) / 10,
             TEMP: (data.buffer.readUInt16BE(4) - 400) / 10,
             HUM: data.buffer.readUInt16BE(6),
