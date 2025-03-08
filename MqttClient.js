@@ -199,6 +199,7 @@ class MqttClient {
                 "state_topic": `${baseTopic}/wind_direction`,
                 "name": "Wind Direction",
                 "unit_of_measurement": "°",
+                "device_class": "wind_direction",
                 "state_class": "measurement",
                 "object_id": `wittboy2mqtt_${identifier}_wind_direction`,
                 "unique_id": `wittboy2mqtt_${identifier}_wind_direction`,
