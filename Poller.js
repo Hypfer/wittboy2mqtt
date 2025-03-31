@@ -38,7 +38,7 @@ class Poller {
     async poll() {
         let data;
         try {
-            data = await this.client.readHoldingRegisters(0x0165, 9);
+            data = await this.client.readHoldingRegisters(0x0165, 10);
         } catch(err) {
             Logger.warn("Error while polling", err)
         }
@@ -57,8 +57,13 @@ class Poller {
             WIND_DIRECTION: data.buffer.readUInt16BE(12),
             RAIN: data.buffer.readUInt16BE(14) / 10,
             PRESSURE: data.buffer.readUInt16BE(16) / 10,
+            RAIN_HIGH_RES : data.buffer.readUInt16BE(18) / 100
         };
 
+        // factor according to the Ecowitt HP2550 console manual 
+        output.IRRADIANCE = (output.ILLUMINANCE / 126.7);
+
+       
         output.WIND_DIRECTION = (output.WIND_DIRECTION + NORTH_OFFSET + 360) % 360;
 
         this.emitData(output);

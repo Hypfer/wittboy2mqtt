@@ -75,6 +75,8 @@ class MqttClient {
         this.client.publish(`${baseTopic}/wind_direction`, stringData.WIND_DIRECTION);
         this.client.publish(`${baseTopic}/rain`, stringData.RAIN);
         this.client.publish(`${baseTopic}/pressure`, stringData.PRESSURE);
+        this.client.publish(`${baseTopic}/rain_high_res`, stringData.RAIN_HIGH_RES);
+        this.client.publish(`${baseTopic}/irradiance`, stringData.IRRADIANCE);
     }
 
     ensureAutoconf(identifier) {
@@ -118,6 +120,23 @@ class MqttClient {
                 "state_class": "measurement",
                 "object_id": `wittboy2mqtt_${identifier}_uv_index`,
                 "unique_id": `wittboy2mqtt_${identifier}_uv_index`,
+                "expire_after": 300,
+                "enabled_by_default": true,
+                "device": device
+            }),
+            { retain: true }
+        );
+
+        this.client.publish(
+            `${discoveryTopic}/irradiance/config`,
+            JSON.stringify({
+                "state_topic": `${baseTopic}/irradiance`,
+                "name": "Solar Radiation",
+                "unit_of_measurement": "W/m²",
+                "device_class": "irradiance",
+                "state_class": "measurement",
+                "object_id": `wittboy2mqtt_${identifier}_irradiance`,
+                "unique_id": `wittboy2mqtt_${identifier}_irradiance`,
                 "expire_after": 300,
                 "enabled_by_default": true,
                 "device": device
@@ -226,6 +245,24 @@ class MqttClient {
             }),
             { retain: true }
         );
+
+        this.client.publish(
+            `${discoveryTopic}/rain_high_res/config`,
+            JSON.stringify({
+                "state_topic": `${baseTopic}/rain_high_res`,
+                "name": "Rain High-Res",
+                "unit_of_measurement": "mm",
+                "device_class": "precipitation",
+                "state_class": "measurement",
+                "object_id": `wittboy2mqtt_${identifier}_rain_high_res`,
+                "unique_id": `wittboy2mqtt_${identifier}_rain_high_res`,
+                "expire_after": 300,
+                "enabled_by_default": true,
+                "device": device
+            }),
+            { retain: true }
+        );
+
 
         this.client.publish(
             `${discoveryTopic}/pressure/config`,
