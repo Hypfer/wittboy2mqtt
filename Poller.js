@@ -61,7 +61,7 @@ class Poller {
         };
 
         // factor according to the Ecowitt HP2550 console manual 
-        output.IRRADIANCE = (output.ILLUMINANCE / 126.7);
+        output.IRRADIANCE = parseFloat((output.ILLUMINANCE / 126.7).toFixed(2));
 
        
         output.WIND_DIRECTION = (output.WIND_DIRECTION + NORTH_OFFSET + 360) % 360;
