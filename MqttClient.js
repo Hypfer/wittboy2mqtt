@@ -219,7 +219,7 @@ class MqttClient {
                 "name": "Wind Direction",
                 "unit_of_measurement": "°",
                 "device_class": "wind_direction",
-                "state_class": "measurement",
+                "state_class": "measurement_angle",
                 "object_id": `wittboy2mqtt_${identifier}_wind_direction`,
                 "unique_id": `wittboy2mqtt_${identifier}_wind_direction`,
                 "expire_after": 300,
